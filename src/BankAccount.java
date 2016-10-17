@@ -10,6 +10,11 @@
  */
 public class BankAccount {
     
+  
+    
+    // shared between all BankAccounts
+    private static int currentAccounts = 0;
+    
     // instance variables
     private double amount = 0;
     private int pin = 0000;
@@ -23,6 +28,11 @@ public class BankAccount {
        this.name = name;
        this.pin = pin;
        
+       
+       // add 1 to create an account
+       BankAccount.currentAccounts++;
+       // set the account number
+       this.accountNumber = BankAccount.currentAccounts;
     }
     
     // Class Methods
@@ -41,6 +51,21 @@ public class BankAccount {
     
     public double checkFunds(){
         return this.amount;
+    }
+    
+    public int getAccountNumber(){
+        return this.accountNumber;
+    }
+    
+    public void transferFundsTo(BankAccount a, double amount){
+        // check for proper amount
+        if(this.amount >= amount){
+            // do the transfer
+            this.amount -= amount;
+            //this.withdraw(amount);
+            a.amount += amount;
+            // a.deposit(amount);
+        }
     }
     
     
